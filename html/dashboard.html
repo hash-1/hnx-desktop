@@ -112,16 +112,17 @@
                             <div class="srch_bar">
                             </div>
                         </div>
-                        <div class="inbox_chat">
-                            <div class="chat_list active_chat">
+                        <div class="inbox_chat" id="chat_list">
+                            <div class="chat_list">
                                 <div class="chat_people">
                                     <div class="chat_img">
                                         <img src="../assets/img/blockchain_icon.png" alt="Public"> </div>
                                     <div class="chat_ib">
-                                        <a href="#"><h5>Public</h5>
+                                        <a href="#" onClick='chatSelector("Public")' class="chatname"><h5>Public</h5>
                                         </a>
                                     </div>
                                 </div>
+                                
                             </div>
                             <span id="userProfile"></span>
                         </div>
@@ -129,7 +130,7 @@
                     <div class="headind_srch">
                         <div class="recent_heading">
                             <h4>
-                                Public
+                                <span id="currentUser"></span>
                             </h4>
                         </div>
                     </div>
@@ -184,11 +185,7 @@
         $(document).keyup(function (e) {
             if (e.keyCode == 13 || e.which == 13) {
                 var contentEditableValue = $("#UserMessage").text();
-                $.ajax({
-                    method: "GET",
-                    url: '/KeyboardSmileys.json',
-                })
-                    .then(function (response) {
+                $.getJSON( "../assets/json/KeyboardSmileys.json", function( response ) {
                         response.forEach(function (items) {
                             var re = new RegExp(items.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g');
                             contentEditableValue = contentEditableValue.replace(re, '<i class="em ' + items.value + '"></i>');
