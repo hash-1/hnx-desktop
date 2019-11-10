@@ -143,8 +143,14 @@ function loadMessages() {
         json: true
     }).then(function (response) {
         var messageCount = parseInt($("#messageCount").text());
+        response.sort(function(a,b){
+            // Turn your strings into dates, and then subtract them
+            // to get a value that is either negative, positive, or zero.
+            return new Date(a.time) - new Date(b.time);
+          });
         if (messageCount == 0 || $('#messages').html() == '') {
             $.each(response, function (i, el) {
+                console.log(el);
                 var newChat = getHtmlMessage(localStorage['account_name'], $('#currentUser').text(), el);
                 $('#messages').append(newChat);
             });
@@ -185,7 +191,7 @@ function getHtmlMessage(from, to, message) {
             html = '<div id="' + message._id + '" name="sentMessage" class="outgoing_msg"><div class="sent_msg"><p>' + finalMsg + '</p><span class="time_date">' + moment(new Date(message.time)).fromNow() + ' | <a href="#" onClick="deleteMe(\'' + message._id + '\')">Delete</a></span></div></div>'
         }
         else {
-            html = '<div name ="receivedMsg" class="incoming_msg"><div class="incoming_msg_img"><img src="/img/blockchain_icon.png" alt="unknown"> </div><div class="received_msg"><div class="received_withd_msg"><p> <font size="2">' + message.from + '</font> <br/>' + finalMsg + '</p><span class="time_date">' + moment(new Date(message.time)).fromNow() + ' | <a href="#" onClick="deleteMe(\'' + message._id + '\')">Delete</a></span></div></div></div>';
+            html = '<div name ="receivedMsg" class="incoming_msg"><div class="incoming_msg_img"><img src="../assets/img/blockchain_icon.png" alt="unknown"> </div><div class="received_msg"><div class="received_withd_msg"><p> <font size="2">' + message.from + '</font> <br/>' + finalMsg + '</p><span class="time_date">' + moment(new Date(message.time)).fromNow() + ' | <a href="#" onClick="deleteMe(\'' + message._id + '\')">Delete</a></span></div></div></div>';
         }
     } else
         if ((message.from == to && message.to == from) || (message.from == from && message.to == to)) {
