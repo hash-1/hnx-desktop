@@ -18,7 +18,8 @@ $(document).ready(function () {
             window.location = 'last-screen.html';
         })
             .catch(function (error) {
-                console.log(error);
+                alert('Signup Failed!! Please try again...');
+                window.location = 'signup.hrml';
             })
     });
 });

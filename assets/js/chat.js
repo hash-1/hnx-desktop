@@ -35,7 +35,7 @@ $(document).ready(function () {
             //Logic for receive payment through wildcard
             if (checkPaymentSignal.length == 5 && checkPaymentSignal[0] == "request" && checkPaymentSignal[3] == "from") {
                 if (confirm("Do you want to make receive request from " + checkPaymentSignal[4] + " for " + checkPaymentSignal[1] + " " + checkPaymentSignal[2] + " ?")) {
-                    newMessage = '<span id="deleteMessage"> Request<br/> To: ' + localStorage['account_name'] + '<br/> Amount: ' + checkPaymentSignal[1] + ' ' + checkPaymentSignal[2] + ' <br/> <a onClick="makePayment(\'' + checkPaymentSignal[1] + ' ' + checkPaymentSignal[2] + ' ' + localStorage['account_name'] + '\')">Send</a> | <a href="#" onClick="deleteMessage()">Cancel</a></span>'
+                    newMessage = '<span id="deleteMessage"> Request<br/> To: ' + localStorage['account_name'] + '<br/> Amount: ' + checkPaymentSignal[1] + ' ' + checkPaymentSignal[2] + ' <br/> <a onClick="makePayment(\'' + checkPaymentSignal[1] + ' ' + checkPaymentSignal[2] + ' ' + localStorage['account_name'] + '\') href="#">Send</a></span>'
                     msgto = checkPaymentSignal[4];
                 }
 
@@ -143,14 +143,13 @@ function loadMessages() {
         json: true
     }).then(function (response) {
         var messageCount = parseInt($("#messageCount").text());
-        response.sort(function(a,b){
+        response.sort(function (a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(a.time) - new Date(b.time);
-          });
+        });
         if (messageCount == 0 || $('#messages').html() == '') {
             $.each(response, function (i, el) {
-                console.log(el);
                 var newChat = getHtmlMessage(localStorage['account_name'], $('#currentUser').text(), el);
                 $('#messages').append(newChat);
             });
@@ -219,4 +218,51 @@ function getHtmlMessage(from, to, message) {
     return html;
 };
 
+function makePayment(message) {
+    var val = message.split(" ");
+    var request = {
+        from: localStorage['account_name'],
+        to: val[2],
+        quantity: parseFloat(val[0]).toFixed(4) + ' ' + val[1],
+        from_private_key: localStorage['private_key'],
+        memo: 'Chat payment at ' + new Date()
+    };
+    $.ajax({
+        method: "POST",
+        url: localStorage['endpoint'] + "wallet/sendCoin",
+        data: request,
+        headers: {
+            'token': localStorage['token']
+        }
+    })
+        .then(function (response) {
+            if(response.transaction_id == undefined){
+                alert('Payment failed');
+            }
+            else{
+                alert('Payment Success, transactionId: '+ response.transaction_id);
+                var request = {
+                    to: val[2],
+                    from: localStorage['account_name'],
+                    message: 'Transaction <br/><br/>' + val[1] + '  ' + '<font size="16" face="verdana" color="black">' + parseFloat(val[0]).toFixed(4) + '</font><br/><br/> <a href="/getPaymentDetails/' + localStorage['account_name'] + '/' + val[2] + '/' + parseFloat(val[0]).toFixed(4) + '/' + val[1] + '/' + response.transaction_id + '">Know More</a>',
+                    time: new Date()
+                };
+                $.ajax({
+                    method: "POST",
+                    url: localStorage['endpoint'] + 'chat/addMessage',
+                    data: request
+                })
+                    .then(function (response) {
+                        return false;
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    })
+            }
+        })
+        .catch(function(err){
+            console.log(err);
+        })
+
+}
 

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/cryptofont.min.css">
     <link rel="stylesheet" href="../assets/css/cryptofont.css">
+    <link rel="stylesheet" href="../assets/css/all-background.css">
     <!-- Font Awesome JS -->
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
@@ -72,11 +73,9 @@
                 </li>
             </ul>
         </nav>
-
         <!-- Page Content  -->
         <div id="content">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg mdb-skin">
                 <div class="container-fluid">
 
                     <button type="button" id="sidebarCollapse" class="btn btn-info">
@@ -91,12 +90,12 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">
-                                    <strong>EOS:</strong> <span id="eos_balance"></span></a>
-                                    <a class="nav-link" href="#">
-                                    <strong>JUNGLE:</strong> <span id="jungle_balance"></span></a>
-                                    <a class="nav-link" href="#">
-                                    <strong>HNX:</strong> <span id="hnx_balance"></span></a>
+                                <strong>EOS:</strong> <span id="eos_balance"></span></a>
+                                &nbsp; | &nbsp;
+                                <strong>JUNGLE:</strong> <span id="jungle_balance"></span></a>
+                                &nbsp; | &nbsp;
+                                <strong>HNX:</strong> <span id="hnx_balance"></span></a>
+                                &nbsp; &nbsp;
                             </li>
 
                     </div>
@@ -118,11 +117,12 @@
                                     <div class="chat_img">
                                         <img src="../assets/img/blockchain_icon.png" alt="Public"> </div>
                                     <div class="chat_ib">
-                                        <a href="#" onClick='chatSelector("Public")' class="chatname"><h5>Public</h5>
+                                        <a href="#" onClick='chatSelector("Public")' class="chatname">
+                                            <h5>Public</h5>
                                         </a>
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <span id="userProfile"></span>
                         </div>
@@ -139,7 +139,8 @@
                             <div class="msg_history" id="messages">
                             </div>
                             <div class="type_msg">
-                                <div contenteditable="true" id="UserMessage" class="input_msg_write"> Type a message
+                                <div contenteditable="true" id="UserMessage" class="input_msg_write"> Type a
+                                    message
                                 </div>
                                 <a id="smileyBtn" class="msg_send_btn" href="#">
                                     Help
@@ -160,13 +161,15 @@
                 <li>
                     <strong>Send Tokens</strong> </li>
                 </br>
-                <p>send [amount] [space] [currency] to [receiver] <br /> For e.g. send 1 eos to humanexp1234 <br />
+                <p>send [amount] [space] [currency] to [receiver] <br /> For e.g. send 1 eos to humanexp1234
+                    <br />
                     Note: All characters should be in lowercase</p>
                 </li>
                 <li>
                     <strong>Request Tokens</strong> </li>
                 </br>
-                <p>request [amount] [space] [currency] from [receiver] <br /> For e.g. request 1 eos from humanexp1234
+                <p>request [amount] [space] [currency] from [receiver] <br /> For e.g. request 1 eos from
+                    humanexp1234
                     <br /> Note: All characters should be in lowercase</p>
                 </li>
                 <li>
@@ -178,6 +181,7 @@
         </div>
 
     </div>
+
     <span hidden id="messageCount">0</span>
     <span hidden id="onlineUsers">0</span>
     <script>
@@ -185,16 +189,16 @@
         $(document).keyup(function (e) {
             if (e.keyCode == 13 || e.which == 13) {
                 var contentEditableValue = $("#UserMessage").text();
-                $.getJSON( "../assets/json/KeyboardSmileys.json", function( response ) {
-                        response.forEach(function (items) {
-                            var re = new RegExp(items.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g');
-                            contentEditableValue = contentEditableValue.replace(re, '<i class="em ' + items.value + '"></i>');
-                        });
-                        $('#UserMessage').html('');
-                        $('#chat').append('<input type="hidden" value="' + encodeURI(contentEditableValue) + '" id="m">'); //add a dummy input to the form to send the value
-                        $('#chat').submit(); //submit the form
-                        $('#m').remove();
-                    })
+                $.getJSON("../assets/json/KeyboardSmileys.json", function (response) {
+                    response.forEach(function (items) {
+                        var re = new RegExp(items.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g');
+                        contentEditableValue = contentEditableValue.replace(re, '<i class="em ' + items.value + '"></i>');
+                    });
+                    $('#UserMessage').html('');
+                    $('#chat').append('<input type="hidden" value="' + encodeURI(contentEditableValue) + '" id="m">'); //add a dummy input to the form to send the value
+                    $('#chat').submit(); //submit the form
+                    $('#m').remove();
+                })
             }
         });
 
@@ -310,6 +314,25 @@
     <script src="../assets/js/chat.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/moment.js"></script>
+    <script type="text/javascript" src="../assets/js/nodes.js"></script>
+    <script type="text/javascript">
+        var nodesjs = new NodesJs({
+            id: 'nodes',
+            width: window.innerWidth,
+            height: window.innerHeight,
+            particleSize: 2,
+            lineSize: 1,
+            particleColor: [255, 255, 255, 0.3],
+            lineColor: [255, 255, 255],
+            backgroundFrom: [10, 25, 100],
+            backgroundTo: [25, 50, 150],
+            backgroundDuration: 4000,
+            nobg: false,
+            number: window.hasOwnProperty('orientation') ? 30 : 100,
+            speed: 20,
+            pointerCircleRadius: 150
+        });
+    </script>
     <script>
         // Get the modal
         var modal = document.getElementById('smileyDialog');
@@ -339,8 +362,6 @@
     </script>
     <script>if (window.module) module = window.module;</script>
     <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-    </div>
-    </div>
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
         integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
