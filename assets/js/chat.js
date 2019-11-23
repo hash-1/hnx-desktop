@@ -9,7 +9,7 @@ $(document).ready(function () {
             .done(function (response) {
                 $.each(response, function (i, item) {
                     if (item != localStorage['account_name'])
-                        $('#chat_list').append('<div class="chat_list"><div class="chat_people"><div class="chat_img"><img src="../assets/img/blockchain_icon.png" alt="' + item + '"></div><div class="chat_ib"><a <a href="#" onClick=\'chatSelector("' + item + '")\' class="chatname"><h5>' + item + '</h5></a></div></div></div>');
+                        $('#chat_list').append('<div class="chat_list" id="chat_list_' + item + '"><div class="chat_people"><div class="chat_img"><img src="../assets/img/blockchain_icon.png" alt="' + item + '"></div><div class="chat_ib"><a href="#" onClick=\'chatSelector("' + item + '")\' class="chatname">' + item + '</br><span id="' + item + '" style="font-size: 12px;"></span></a></div></div></div>');
                 })
             })
 
@@ -165,6 +165,22 @@ function loadMessages() {
                 scrollTop: $('#messages')[0].scrollHeight
             });
         }
+        var users = [];
+        $.each(response, function (key, message) {
+            if (message.message.split(" ")[0] == 'Transaction' && message.message.split(" ")[1] == '<br/><br/>EOS') {
+                $('#' + message.to).text('New Transaction happend (' + moment(new Date(message.time)).fromNow() + ')');
+            }
+            else {
+                $('#' + message.to).text(message.message + ' (' + moment(new Date(message.time)).fromNow() + ')');
+            }
+            var foundTo = users.filter(function (item) {
+                return item == message.to || item == message.from;
+            });
+            foundTo = foundTo.filter(function (item) {
+                return item != localStorage['account_name'];
+            })
+
+        })
         setTimeout(function () {
             loadMessages();
         }, 2000);
@@ -236,11 +252,11 @@ function makePayment(message) {
         }
     })
         .then(function (response) {
-            if(response.transaction_id == undefined){
+            if (response.transaction_id == undefined) {
                 alert('Payment failed');
             }
-            else{
-                alert('Payment Success, transactionId: '+ response.transaction_id);
+            else {
+                alert('Payment Success, transactionId: ' + response.transaction_id);
                 var request = {
                     to: val[2],
                     from: localStorage['account_name'],
@@ -260,7 +276,7 @@ function makePayment(message) {
                     })
             }
         })
-        .catch(function(err){
+        .catch(function (err) {
             console.log(err);
         })
 
