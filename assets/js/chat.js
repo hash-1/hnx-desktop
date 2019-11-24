@@ -1,27 +1,45 @@
+var onlineusers = [];
+var users = [];
+var messages = [];
 $(document).ready(function () {
     $('#currentUser').text('Public');
+    var status = false;
     function getOnlineUsers() {
+        var request = {
+            user: localStorage['account_name']
+        }
         $.ajax({
-            method: "GET",
-            url: localStorage['endpoint'] + "user/getOnlineUser",
+            method: "POST",
+            url: localStorage['endpoint'] + "user/getOneOnlineUser",
+            data: request,
             json: true
         })
             .done(function (response) {
-                $.each(response, function (i, item) {
-                    if (item != localStorage['account_name'])
-                        $('#chat_list').append('<div class="chat_list" id="chat_list_' + item + '"><div class="chat_people"><div class="chat_img"><img src="../assets/img/blockchain_icon.png" alt="' + item + '"></div><div class="chat_ib"><a href="#" onClick=\'chatSelector("' + item + '")\' class="chatname">' + item + '</br><span id="' + item + '" style="font-size: 12px;"></span></a></div></div></div>');
-                })
+                var is_same = (response.length == onlineusers.length) && response.every(function(element, index) {
+                    return element === onlineusers[index]; 
+                });
+                console.log(is_same);
+                if (is_same == false) {
+                    $('#chat_list').html("");
+                    onlineusers = response;
+                    $.each(onlineusers, function (i, item) {
+                        if (item != localStorage['account_name'])
+                            $('#chat_list').append('<div class="chat_list" id="chat_list_' + item + '"><div class="chat_people"><div class="chat_img"><img src="../assets/img/blockchain_icon.png" alt="' + item + '"></div><div class="chat_ib"><a href="#" onClick=\'chatSelector("' + item + '")\' class="chatname">' + item + '</br><span id="' + item + '" style="font-size: 12px;"></span></a></div></div></div>');
+                    })
+                    status =false;
+                }
+                setTimeout(function () { getOnlineUsers(); }, 5000);
             })
 
     }
 
-    setTimeout(function () { getOnlineUsers(); }, 2000);
+    setTimeout(function () { getOnlineUsers(); }, 3000);
 
     /*
-* When user submit chat below operation happens:
-* 1. Submit the chat to server
-* 2. Add chat to user 
-* */
+    * When user submit chat below operation happens:
+    * 1. Submit the chat to server
+    * 2. Add chat to user 
+    * */
     $('form').submit(function () {
         var status = false;
         if ($('#m').val() == '') {
@@ -116,7 +134,6 @@ $(document).ready(function () {
         }
     });
 
-
 });
 
 /*
@@ -134,22 +151,27 @@ function chatSelector(chatName) {
 function loadMessages() {
     var request = {
         user1: localStorage['account_name'],
-        user2: $('#currentUser').text()
+        user2: $('#currentUser').text(),
+        message: JSON.stringify(messages)
     };
     $.ajax({
         type: "POST",
-        url: localStorage['endpoint'] + "chat/getMessage",
+        url: localStorage['endpoint'] + "chat/getAllMessagesForUser",
         data: request,
-        json: true
+        json: true,
+        accept: "application/json"
     }).then(function (response) {
+        $.each(response, function (i, msg) {
+            messages.push(msg);
+        })
         var messageCount = parseInt($("#messageCount").text());
-        response.sort(function (a, b) {
+        messages.sort(function (a, b) {
             // Turn your strings into dates, and then subtract them
             // to get a value that is either negative, positive, or zero.
             return new Date(a.time) - new Date(b.time);
         });
         if (messageCount == 0 || $('#messages').html() == '') {
-            $.each(response, function (i, el) {
+            $.each(messages, function (i, el) {
                 var newChat = getHtmlMessage(localStorage['account_name'], $('#currentUser').text(), el);
                 $('#messages').append(newChat);
             });
@@ -157,18 +179,17 @@ function loadMessages() {
                 scrollTop: $('#messages')[0].scrollHeight
             });
         }
-        if ((messageCount < response.length) && (messageCount != 0)) {
-            var newChat = getHtmlMessage(localStorage['account_name'], $('#currentUser').text(), response[response.length - 1]);
+        if ((messageCount < messages.length) && (messageCount != 0)) {
+            var newChat = getHtmlMessage(localStorage['account_name'], $('#currentUser').text(), messages[messages.length - 1]);
             $('#messages').append(newChat);
             $('#tempSent').remove();
             $('#messages').animate({
                 scrollTop: $('#messages')[0].scrollHeight
             });
         }
-        var users = [];
-        $.each(response, function (key, message) {
-            if (message.message.split(" ")[0] == 'Transaction' && message.message.split(" ")[1] == '<br/><br/>EOS') {
-                $('#' + message.to).text('New Transaction happend (' + moment(new Date(message.time)).fromNow() + ')');
+        $.each(messages, function (key, message) {
+            if (message.message.split(" ").length > 10 || message.message.split("<i").length > 0) {
+                $('#' + message.to).text('You have message (' + moment(new Date(message.time)).fromNow() + ')');
             }
             else {
                 $('#' + message.to).text(message.message + ' (' + moment(new Date(message.time)).fromNow() + ')');
@@ -179,12 +200,11 @@ function loadMessages() {
             foundTo = foundTo.filter(function (item) {
                 return item != localStorage['account_name'];
             })
-
         })
         setTimeout(function () {
             loadMessages();
         }, 2000);
-        $("#messageCount").html(response.length);
+        $("#messageCount").html(messages.length);
     })
         .catch(function (error) {
             console.log(error);
@@ -279,6 +299,4 @@ function makePayment(message) {
         .catch(function (err) {
             console.log(err);
         })
-
 }
-
