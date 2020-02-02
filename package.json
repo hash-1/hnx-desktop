@@ -5,13 +5,14 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "build": "electron-packager ./ ChinChat --arch=ia32 --asar --overwrite --icon=assets/img/favicon.ico "
+    "build": "electron-packager ./ HNX-Desktop --arch=ia32 --asar --overwrite --icon=assets/img/favicon.ico ",
+    "setup": "electron-installer-windows --src HNX-win32-ia32 --dest dist/installers/"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hash-1/hnx-desktop.git"
   },
-  "author": "",
+  "author": "Team HNX",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/hash-1/hnx-desktop/issues"
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/hash-1/hnx-desktop#readme",
   "dependencies": {
     "electron": "^7.0.1",
+    "electron-installer-windows": "^3.0.0",
     "electron-packager": "^14.1.0"
   }
 }
