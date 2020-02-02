@@ -18,7 +18,6 @@ $(document).ready(function () {
                 var is_same = (response.length == onlineusers.length) && response.every(function(element, index) {
                     return element === onlineusers[index]; 
                 });
-                console.log(is_same);
                 if (is_same == false) {
                     $('#chat_list').html("");
                     onlineusers = response;
