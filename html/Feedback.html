@@ -110,92 +110,10 @@
             </nav>
             <link rel="stylesheet" href="../assets/css/chat.css">
             <div class="messaging">
-               
+                
             </div>
         </div>
     </div>
-    <div id="smileyDialog" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <ul class="smileys">
-                <li>
-                    <strong>Send Tokens</strong> </li>
-                </br>
-                <p>send [amount] [space] [currency] to [receiver] <br /> For e.g. send 1 eos to humanexp1234
-                    <br />
-                    Note: All characters should be in lowercase</p>
-                </li>
-                <li>
-                    <strong>Request Tokens</strong> </li>
-                </br>
-                <p>request [amount] [space] [currency] from [receiver] <br /> For e.g. request 1 eos from
-                    humanexp1234
-                    <br /> Note: All characters should be in lowercase</p>
-                </li>
-                <li>
-                    <strong>Smileys</strong>
-                    </br>
-                    <p>Basic Standard smileys are supported: :) or :-) for smile, :P for tongue out etc</p>
-                </li>
-            </ul>
-        </div>
-
-    </div>
-
-    <span hidden id="messageCount">0</span>
-    <span hidden id="onlineUsers">0</span>
-    <script>
-
-        $(document).keyup(function (e) {
-            if (e.keyCode == 13 || e.which == 13) {
-                var contentEditableValue = $("#UserMessage").text();
-                $.getJSON("../assets/json/KeyboardSmileys.json", function (response) {
-                    response.forEach(function (items) {
-                        var re = new RegExp(items.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g');
-                        contentEditableValue = contentEditableValue.replace(re, '<i class="em ' + items.value + '"></i>');
-                    });
-                    $('#UserMessage').html('');
-                    $('#chat').append('<input type="hidden" value="' + encodeURI(contentEditableValue) + '" id="m">'); //add a dummy input to the form to send the value
-                    $('#chat').submit(); //submit the form
-                    $('#m').remove();
-                })
-            }
-        });
-
-        $('div').on('activate', function () {
-            $(this).empty();
-            var range, sel;
-            if ((sel = document.selection) && document.body.createTextRange) {
-                range = document.body.createTextRange();
-                range.moveToElementText(this);
-                range.select();
-            }
-        });
-
-        $('div').focus(function () {
-            if (this.hasChildNodes() && document.createRange && window.getSelection) {
-                $(this).empty();
-                var range, sel;
-                range = document.createRange();
-                range.selectNodeContents(this);
-                sel = window.getSelection();
-                sel.removeAllRanges();
-                sel.addRange(range);
-            }
-        });
-        $(function () {
-            //WHEN YOU CLICK THE ELEMENT..
-            $('li.inliner').on('click', function () {
-                //GET THE TEXT INSIDE THAT SPECIFIC LI
-                var content = $(this).html();
-                //PLACE THE TEXT INSIDE THE INPUT FIELD, YOU CAN CHANGE YOUR SELECTOR TO TARGET THE RIGHT INPUT
-                $("#m").val(content);
-                //HERE YOU CAN DO SOMETHING ELSE LIKE SIBMITING THE FORM, OR CLICK A BUTTON.. OR SOMETHING ELSE
-            });
-        });
-    </script>
     <script>if (window.module) module = window.module;</script>
     <style>
         .online {
@@ -273,7 +191,6 @@
         }
     </style>
     <script src="../assets/js/dateFormatter.js"></script>
-    <script src="../assets/js/chat.js"></script>
     <script src="../assets/js/dashboard.js"></script>
     <script src="../assets/js/moment.js"></script>
     <script type="text/javascript" src="../assets/js/nodes.js"></script>
@@ -343,4 +260,4 @@
     <script>if (window.module) module = window.module;</script>
 </body>
 
-</html>
+</html>	
