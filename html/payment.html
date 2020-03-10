@@ -1,0 +1,63 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMMICHAEL103</title>
+    <link rel="stylesheet" href="./bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="./main.css" />
+</head>
+
+<body>
+    <div class="register">
+        <div class="row mrg_t">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                <h3>Welcome</h3>
+                <p>You are 30 seconds away from earning your own money!</p>
+                <a href="./login.html">Login</a> <br/>
+            </div>
+            <div class="col-md-9 register-right">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active">
+                        <h3 class="register-heading">HNX and EOS Payment</h3>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Receiver Account 12 Character Name" id="Name" />
+                                    <label for="Name" class="label_">Receiver Account 12 Character Name</label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Message" id="message" />
+                                    <label for="message" class="label_">Message</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Amount" id="amount"/>
+                                    <label for="amount" class="label_">Amount</label>
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" id="payment">
+                                        <option class="hidden"  selected disabled>Please select your Sequrity Question</option>
+                                        <option>What is your Birthdate?</option>
+                                        <option>What is Your old Phone Number</option>
+                                        <option>What is your Pet Name?</option>
+                                    </select>
+                                    <label for="payment" class="label_">Payment Reason</label>
+                                </div>
+                                <input type="submit" class="btnRegister"  value="Send"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>
