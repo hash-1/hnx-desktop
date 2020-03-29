@@ -188,7 +188,7 @@ function loadMessages() {
         }
         $.each(messages, function (key, message) {
             if (message.message.split(" ").length > 10 || message.message.split("<i").length > 0) {
-                $('#' + message.to).text('You have message (' + moment(new Date(message.time)).fromNow() + ')');
+                $('#' + message.to).text('conversation ' + moment(new Date(message.time)).fromNow());
             }
             else {
                 $('#' + message.to).text(message.message + ' (' + moment(new Date(message.time)).fromNow() + ')');

@@ -25,12 +25,13 @@ a:focus {
 }
 
 .navbar {
-    padding: 15px 10px;
-    background: #fff;
+    padding: 15px 40px;
+    background: #F3F3FD;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    color:rgb(41, 33, 33)
 }
 
 .navbar-btn {
@@ -42,7 +43,7 @@ a:focus {
 .line {
     width: 100%;
     height: 1px;
-    border-bottom: 1px dashed #ddd;
+    border-bottom: 1px dashed #F3F3Fd;
     margin: 40px 0;
 }
 
@@ -57,31 +58,36 @@ a:focus {
 }
 
 #sidebar {
-    margin-left: -250px;
+    margin-left: 0px;
     min-width: 250px;
     max-width: 250px;
-    background: rgb(51, 52, 54);
+    background: #6692FD;
     color: #fff;
-    transition: all 0.3s;
+}
+
+#btn {
+    background: #6692FD;
+    color: #6692FD;
 }
 
 #sidebar.active {
     margin-left: 0px;
     min-width: 250px;
     max-width: 250px;
-    background: rgb(51, 52, 54);
+    background:  #6692FD;
     color: #fff;
-    transition: all 0.3s;
 }
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #434546;
+    background-color: #6692FD;
 }
 
 #sidebar ul.components {
     padding: 20px 0;
-    border-bottom: 1px solid #434546;
+    border-bottom: 1px solid  #6692FD;
+    background-color: #6692FD;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 #sidebar ul p {
@@ -103,7 +109,7 @@ a:focus {
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
     color: #fff;
-    background: #434546;
+    background:  #6692FD;
 }
 
 a[data-toggle="collapse"] {
@@ -153,7 +159,6 @@ a.article:hover {
 
 #content {
     width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }

@@ -4,12 +4,13 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../assets/css/sign.css">
-    <link rel="stylesheet" href="../assets/css/all-background.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/util.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/all.css">
     <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
     <script>if (window.module) module = window.module;</script>
 
@@ -17,32 +18,34 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-            <img src="../assets/img/logohnx.png" width="30" height="30" class="d-inline-block align-top" alt="HNX">
-            HNX
-        </a>
-    </nav>
+    <div class="body_trans">
+        <div class="blog-slider">
+            <div class="blog-slider__wrp swiper-wrapper">
+                <div class="blog-slider__item swiper-slide">
+                    <div class="blog-slider__img">
 
-    <div class="container">
-        <div class="row">
-            <div class="card">
-                <h5 class="card-header">Last Screen:</h5>
-                <div class="card-body">
-                    <form>
-                        <h5 class="card-title">Account Name:</h5>
-                        <p class="card-text" id="account_name"></p>
-                        <h5 class="card-title">Public Key:</h5>
-                        <p class="card-text" id="public_key"></p>
-                        <h5 class="card-title">Private Key:</h5>
-                        <p class="card-text" id="private_key"></p>
-                        <input type="submit" class="btn btn-primary" value="Go to login">
-                    </form>
+                        <img src="https://res.cloudinary.com/muhammederdem/image/upload/v1535759872/kuldar-kalvik-799168-unsplash.jpg"
+                            alt="">
+                    </div>
+                    <div>
+                        <h2 class="blog-slider__title">Notice: Last Time Screen</h2>
+                        <div class="blog-slider__text"><b>Account Name:</b><br /><span class="pl-1"
+                                id="account_name"></span><br /></div>
+                        <div class="blog-slider__text"><b>Public Key:</b><br /><span class="pl-1"
+                                id="public_key"></span><br />
+                        </div>
+                        <div class="blog-slider__text"><b>Private Key:</b><br /><span class="pl-1"
+                                id="private_key"></span><br />
+                        </div>
+                        <small class="mt-1">Please note that this key will be used for any wallet transaction. This is
+                            last
+                            time you are watching this key. Make sure you keep it in safe place.</p>
+                            <a href="index.html" class="blog-slider__button">Saved! Go to Signin</a>
+                    </div>
                 </div>
+
             </div>
-            <p>Note: This is last screen. HNX do not save any credetial(or private key) for any user. Please keep it
-                save to avoid loosing the account.
-            </p>
+            <div class="blog-slider__pagination"></div>
         </div>
     </div>
 

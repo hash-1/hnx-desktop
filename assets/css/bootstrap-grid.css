@@ -2095,6 +2095,7 @@ html {
 .pl-1,
 .px-1 {
   padding-left: 0.25rem !important;
+  font-size: small;
 }
 
 .p-2 {

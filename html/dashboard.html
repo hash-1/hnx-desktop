@@ -41,10 +41,7 @@
             </div>
 
             <ul class="list-unstyled components">
-                <p id="account">
-                    <img src="../assets/img/user.png" width="30" height="30" class="d-inline-block align-top" alt="">
-
-                </p>
+                <p id="account"> </p>
                 <li>
                     <a href="#">
                         <i class="fa fa-comment" aria-hidden="true"></i> Messages</a>
@@ -85,11 +82,6 @@
         <div id="content">
             <nav class="navbar navbar-expand-lg mdb-skin">
                 <div class="container-fluid">
-
-                    <button type="button" id="sidebarCollapse" class="btn btn-info">
-                        <i class="fas fa-align-left"></i>
-                        <span></span>
-                    </button>
                     <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -114,7 +106,7 @@
                     <div class="inbox_people">
                         <div class="headind_srch">
                             <div class="recent_heading">
-                                <h4>Available</h4>
+                                <h4>People</h4>
                             </div>
                             <div class="srch_bar">
                             </div>
@@ -126,7 +118,7 @@
                                         <img src="../assets/img/blockchain_icon.png" alt="Public"> </div>
                                     <div class="chat_ib">
                                         <a href="#" onClick='chatSelector("Public")' class="chatname">
-                                            Public
+                                             Public
                                             <br />
                                             <span id="Public" style="font-size: 12px;"></span>
                                         </a>
@@ -380,14 +372,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
         integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
     <script>if (window.module) module = window.module;</script>
 </body>
 
